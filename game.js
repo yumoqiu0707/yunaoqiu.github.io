@@ -265,6 +265,50 @@ document.addEventListener("keydown",e=>{
     }
 });
 
+// 添加手机滑动支持
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+document.addEventListener("touchstart", e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, false);
+
+document.addEventListener("touchend", e => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+}, false);
+
+function handleSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const minSwipeDistance = 50; // 最小滑动距离
+
+    // 确保滑动距离足够大
+    if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
+        return;
+    }
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // 水平滑动
+        if (deltaX > 0) {
+            move("right");
+        } else {
+            move("left");
+        }
+    } else {
+        // 垂直滑动
+        if (deltaY > 0) {
+            move("down");
+        } else {
+            move("up");
+        }
+    }
+}
+
 document.getElementById("restart").onclick = initGame;
 document.getElementById("undo").onclick = undoStep;
 document.getElementById("goOn").onclick = ()=>winModal.style.display="none";
