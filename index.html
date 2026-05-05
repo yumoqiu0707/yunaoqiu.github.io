@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>终极完整版2048</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="wrap">
+    <h1>终极完整版 2048</h1>
+
+    <div class="score-box">
+        <div class="s-item">本局分数：<span id="nowScore">0</span></div>
+        <div class="s-item">本局最大：<span id="maxNum">0</span></div>
+        <div class="s-item">历史最大：<span id="bestNum">0</span></div>
+        <div class="s-item">步数：<span id="stepNum">0</span></div>
+        <div class="s-item">状态：<span id="timeNum">--</span></div>
+    </div>
+
+    <div class="ctrl-box">
+        <div class="line">
+            <select id="rowSelect">
+                <option value="3">3行</option>
+                <option value="4" selected>4行</option>
+                <option value="5">5行</option>
+                <option value="6">6列</option>
+                <option value="8">8行</option>
+            </select>
+            <select id="colSelect">
+                <option value="3">3列</option>
+                <option value="4" selected>4列</option>
+                <option value="5">5列</option>
+                <option value="6">6列</option>
+                <option value="8">8列</option>
+            </select>
+            <select id="rateSelect">
+                <option value="90" selected>2:4 = 9:1</option>
+                <option value="80">2:4 = 8:2</option>
+                <option value="70">2:4 = 7:3</option>
+            </select>
+        </div>
+        <div class="line">
+            <select id="modeSelect">
+                <option value="classic" selected>经典模式</option>
+                <option value="time">限时60秒</option>
+                <option value="step">限定100步</option>
+                <option value="survive">生存模式</option>
+                <option value="barrier">障碍模式</option>
+                <option value="hide">暗格模式</option>
+                <option value="reverse">反向模式</option>
+            </select>
+            <select id="themeSelect">
+                <option value="classic" selected>经典主题</option>
+                <option value="dark">暗夜主题</option>
+            </select>
+            <button id="restart">重新开始</button>
+            <button id="undo">撤销一步</button>
+            <button id="bgmBtn">🔊 静音</button>
+        </div>
+    </div>
+
+    <div class="game-main" id="gameMain"></div>
+
+    <!-- 弹窗 -->
+    <div class="modal" id="winModal">
+        <h2>🎉 合成2048 通关！</h2>
+        <p>是否继续冲击更高数字？</p>
+        <button id="goOn">继续游戏</button>
+        <button id="gameEnd">结束本局</button>
+    </div>
+    <div class="modal" id="overModal">
+        <h2>游戏结束</h2>
+        <p>本局最大数字：<span id="endMaxNum"></span></p>
+        <button id="resetBtn">再来一局</button>
+    </div>
+
+    <!-- 在线音效，自动加载 -->
+    <audio id="bgmAudio" loop preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/leprosus/audio-assets@main/lofi-light.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="moveAudio" preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/leprosus/audio-assets@main/click.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="mergeAudio" preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/leprosus/audio-assets@main/bell.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 模式玩法介绍 -->
+    <div class="intro-box">
+        <h3>🎮 全模式玩法介绍</h3>
+        <p>1.经典模式：标准2048，走一步生成1个方块，合成2048可继续挑战</p>
+        <p>2.限时60秒：60秒倒计时，时间结束立刻结算成绩</p>
+        <p>3.限定100步：仅限100次移动，用完步数直接结束</p>
+        <p>4.生存模式：每5秒自动随机生成方块，被时间逼迫，考验存活能力</p>
+        <p>5.障碍模式：随机生成黑色墙体，墙体不可移动、不可合并，需绕路走位</p>
+        <p>6.暗格模式：部分格子隐藏只显示问号，靠记忆推理数字位置</p>
+        <p>7.反向模式：只能向上、向左滑动，禁止向右、向下，逆向思维挑战</p>
+    </div>
+</div>
+
+<script src="audio.js"></script>
+<script src="effect.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
